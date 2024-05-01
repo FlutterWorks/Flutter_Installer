@@ -11,14 +11,14 @@ class FiTheme {
   );
 
   static final ThemeData lightTheme = ThemeData(
-    brightness: Brightness.light,
     textTheme: _textTheme,
     fontFamily: 'Roboto',
+    colorScheme: const ColorScheme.light(),
   );
 
   static final ThemeData darkTheme = ThemeData(
-    brightness: Brightness.dark,
     textTheme: _textTheme,
     fontFamily: 'Roboto',
+    colorScheme: const ColorScheme.dark(),
   );
 }

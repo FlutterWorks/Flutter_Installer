@@ -44,34 +44,22 @@ class HomeScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: FiConstants.unit),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.all(FiConstants.unit),
-                ),
+              FilledButton(
                 onPressed: () async {
                   await context.read<FIRouter>().push(
                         const CustomizeRoute(),
                       );
                 },
-                child: Text(
-                  "Get Started",
-                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                ),
+                child: const Text("Get Started"),
               ),
               const SizedBox(height: FiConstants.unit),
-              TextButton.icon(
+              OutlinedButton.icon(
                 key: faqButtonKey,
                 onPressed: () async {
                   await context.read<FIRouter>().push(const FaqRoute());
                 },
                 icon: const Icon(Icons.help_outline_rounded),
-                label: Text(
-                  "FAQ",
-                  style: Theme.of(context).textTheme.labelLarge,
-                ),
+                label: const Text("FAQ"),
               ),
               const Spacer(),
               Text(
