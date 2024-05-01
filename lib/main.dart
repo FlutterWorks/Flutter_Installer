@@ -6,9 +6,7 @@ import 'package:flutter_installer/core/utils/fi_logger.dart';
 void main() {
   FiLogger.initLogger();
 
-  runApp(
-    const FiApp(),
-  );
+  runApp(const FiApp());
 
   bitsdojo_window.doWhenWindowReady(() {
     /// In case you want to change this, make sure it is a 16:9 ratio.

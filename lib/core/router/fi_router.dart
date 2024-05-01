@@ -13,7 +13,7 @@ part 'fi_router.gr.dart';
 class FIRouter extends _$FIRouter {
   @override
   List<AutoRoute> get routes => [
-        AutoRoute(page: HomeRoute.page),
+        AutoRoute(page: HomeRoute.page, initial: true),
         AutoRoute(page: FaqRoute.page),
         AutoRoute(page: CustomizeRoute.page),
         AutoRoute(page: VerifyRoute.page),

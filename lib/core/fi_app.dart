@@ -27,9 +27,7 @@ class _FiAppState extends State<FiApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      routerDelegate: _fiRouter.delegate(),
-      routeInformationParser: _fiRouter.defaultRouteParser(),
-      routeInformationProvider: _fiRouter.routeInfoProvider(),
+      routerConfig: _fiRouter.config(),
       theme: FiTheme.lightTheme,
       builder: (BuildContext context, Widget? child) {
         return FiWindowBorder(

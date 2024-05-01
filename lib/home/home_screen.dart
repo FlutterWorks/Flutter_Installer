@@ -81,7 +81,7 @@ class HomeScreen extends StatelessWidget {
               ),
               Text(
                 "Flutter and the related logo are trademarks of Google LLC.\nWe are not endorsed by or affiliated with Google LLC.",
-                style: Theme.of(context).textTheme.titleSmall,
+                style: Theme.of(context).textTheme.bodySmall,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: FiConstants.unit),
