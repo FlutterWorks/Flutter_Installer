@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 class AppCheckboxTile extends StatelessWidget {
   const AppCheckboxTile({
-    Key? key,
+    super.key,
     required this.title,
     required this.value,
     required this.onChanged,
-  }) : super(key: key);
+  });
 
   final String title;
   final bool value;

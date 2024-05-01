@@ -7,26 +7,15 @@ import 'package:flutter_installer/verify/verify_screen.dart';
 
 part 'fi_router.gr.dart';
 
-@AdaptiveAutoRouter(
+@AutoRouterConfig(
   replaceInRouteName: "Screen,Route",
-  routes: <AutoRoute>[
-    AdaptiveRoute(
-      path: "/",
-      page: HomeScreen,
-      initial: true,
-    ),
-    AdaptiveRoute(
-      path: "/faq",
-      page: FaqScreen,
-    ),
-    AdaptiveRoute(
-      path: "/customize",
-      page: CustomizeScreen,
-    ),
-    AdaptiveRoute(
-      path: "/verify",
-      page: VerifyScreen,
-    ),
-  ],
 )
-class FIRouter extends _$FIRouter {}
+class FIRouter extends _$FIRouter {
+  @override
+  List<AutoRoute> get routes => [
+        AutoRoute(page: HomeRoute.page),
+        AutoRoute(page: FaqRoute.page),
+        AutoRoute(page: CustomizeRoute.page),
+        AutoRoute(page: VerifyRoute.page),
+      ];
+}

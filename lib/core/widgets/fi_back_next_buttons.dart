@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class FIBackNextButtons extends StatelessWidget {
   const FIBackNextButtons({
-    Key? key,
+    super.key,
     required this.onBackPressed,
     required this.onNextPressed,
-  }) : super(key: key);
+  });
 
   final void Function()? onBackPressed;
   final void Function()? onNextPressed;
@@ -20,7 +20,7 @@ class FIBackNextButtons extends StatelessWidget {
           icon: const Icon(Icons.arrow_left_rounded),
           label: Text(
             "Back",
-            style: Theme.of(context).textTheme.button?.copyWith(
+            style: Theme.of(context).textTheme.labelLarge?.copyWith(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
@@ -31,7 +31,7 @@ class FIBackNextButtons extends StatelessWidget {
           label: const Icon(Icons.arrow_right_rounded),
           icon: Text(
             "Next",
-            style: Theme.of(context).textTheme.button?.copyWith(
+            style: Theme.of(context).textTheme.labelLarge?.copyWith(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),

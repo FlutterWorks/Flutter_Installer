@@ -9,18 +9,15 @@ void main() {
     );
   }
 
-  group(
-    "FaqScreen |",
-    () {
-      testWidgets(
-        "should render correctly",
-        (WidgetTester tester) async {
-          await tester.pumpWidget(buildFaqScreen());
-          await tester.pumpAndSettle();
+  group("FaqScreen |", () {
+    testWidgets(
+      "should render correctly",
+      (WidgetTester tester) async {
+        await tester.pumpWidget(buildFaqScreen());
+        await tester.pumpAndSettle();
 
-          expect(find.byType(FaqScreen), findsOneWidget);
-        },
-      );
-    },
-  );
+        expect(find.byType(FaqScreen), findsOneWidget);
+      },
+    );
+  });
 }

@@ -1,112 +1,135 @@
-// **************************************************************************
-// AutoRouteGenerator
-// **************************************************************************
-
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
-// AutoRouteGenerator
+// AutoRouterGenerator
 // **************************************************************************
-//
+
 // ignore_for_file: type=lint
+// coverage:ignore-file
 
 part of 'fi_router.dart';
 
-class _$FIRouter extends RootStackRouter {
-  _$FIRouter([GlobalKey<NavigatorState>? navigatorKey]) : super(navigatorKey);
+abstract class _$FIRouter extends RootStackRouter {
+  // ignore: unused_element
+  _$FIRouter({super.navigatorKey});
 
   @override
   final Map<String, PageFactory> pagesMap = {
-    HomeRoute.name: (routeData) {
-      return AdaptivePage<dynamic>(
-          routeData: routeData, child: const HomeScreen());
+    CustomizeRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const CustomizeScreen(),
+      );
     },
     FaqRoute.name: (routeData) {
-      return AdaptivePage<dynamic>(
-          routeData: routeData, child: const FaqScreen());
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const FaqScreen(),
+      );
     },
-    CustomizeRoute.name: (routeData) {
-      return AdaptivePage<dynamic>(
-          routeData: routeData, child: const CustomizeScreen());
+    HomeRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const HomeScreen(),
+      );
     },
     VerifyRoute.name: (routeData) {
       final args = routeData.argsAs<VerifyRouteArgs>();
-      return AdaptivePage<dynamic>(
-          routeData: routeData,
-          child: VerifyScreen(
-              key: args.key,
-              installationPath: args.installationPath,
-              isVsCodeSelected: args.isVsCodeSelected,
-              isGitSelected: args.isGitSelected,
-              isIntellijIdeaSelected: args.isIntellijIdeaSelected,
-              isAndroidStudioSelected: args.isAndroidStudioSelected));
-    }
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: VerifyScreen(
+          key: args.key,
+          installationPath: args.installationPath,
+          isVsCodeSelected: args.isVsCodeSelected,
+          isGitSelected: args.isGitSelected,
+          isIntellijIdeaSelected: args.isIntellijIdeaSelected,
+          isAndroidStudioSelected: args.isAndroidStudioSelected,
+        ),
+      );
+    },
   };
-
-  @override
-  List<RouteConfig> get routes => [
-        RouteConfig(HomeRoute.name, path: '/'),
-        RouteConfig(FaqRoute.name, path: '/faq'),
-        RouteConfig(CustomizeRoute.name, path: '/customize'),
-        RouteConfig(VerifyRoute.name, path: '/verify')
-      ];
-}
-
-/// generated route for
-/// [HomeScreen]
-class HomeRoute extends PageRouteInfo<void> {
-  const HomeRoute() : super(HomeRoute.name, path: '/');
-
-  static const String name = 'HomeRoute';
-}
-
-/// generated route for
-/// [FaqScreen]
-class FaqRoute extends PageRouteInfo<void> {
-  const FaqRoute() : super(FaqRoute.name, path: '/faq');
-
-  static const String name = 'FaqRoute';
 }
 
 /// generated route for
 /// [CustomizeScreen]
 class CustomizeRoute extends PageRouteInfo<void> {
-  const CustomizeRoute() : super(CustomizeRoute.name, path: '/customize');
+  const CustomizeRoute({List<PageRouteInfo>? children})
+      : super(
+          CustomizeRoute.name,
+          initialChildren: children,
+        );
 
   static const String name = 'CustomizeRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [FaqScreen]
+class FaqRoute extends PageRouteInfo<void> {
+  const FaqRoute({List<PageRouteInfo>? children})
+      : super(
+          FaqRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'FaqRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [HomeScreen]
+class HomeRoute extends PageRouteInfo<void> {
+  const HomeRoute({List<PageRouteInfo>? children})
+      : super(
+          HomeRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'HomeRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
 /// [VerifyScreen]
 class VerifyRoute extends PageRouteInfo<VerifyRouteArgs> {
-  VerifyRoute(
-      {Key? key,
-      required String installationPath,
-      required bool isVsCodeSelected,
-      required bool isGitSelected,
-      required bool isIntellijIdeaSelected,
-      required bool isAndroidStudioSelected})
-      : super(VerifyRoute.name,
-            path: '/verify',
-            args: VerifyRouteArgs(
-                key: key,
-                installationPath: installationPath,
-                isVsCodeSelected: isVsCodeSelected,
-                isGitSelected: isGitSelected,
-                isIntellijIdeaSelected: isIntellijIdeaSelected,
-                isAndroidStudioSelected: isAndroidStudioSelected));
+  VerifyRoute({
+    Key? key,
+    required String installationPath,
+    required bool isVsCodeSelected,
+    required bool isGitSelected,
+    required bool isIntellijIdeaSelected,
+    required bool isAndroidStudioSelected,
+    List<PageRouteInfo>? children,
+  }) : super(
+          VerifyRoute.name,
+          args: VerifyRouteArgs(
+            key: key,
+            installationPath: installationPath,
+            isVsCodeSelected: isVsCodeSelected,
+            isGitSelected: isGitSelected,
+            isIntellijIdeaSelected: isIntellijIdeaSelected,
+            isAndroidStudioSelected: isAndroidStudioSelected,
+          ),
+          initialChildren: children,
+        );
 
   static const String name = 'VerifyRoute';
+
+  static const PageInfo<VerifyRouteArgs> page = PageInfo<VerifyRouteArgs>(name);
 }
 
 class VerifyRouteArgs {
-  const VerifyRouteArgs(
-      {this.key,
-      required this.installationPath,
-      required this.isVsCodeSelected,
-      required this.isGitSelected,
-      required this.isIntellijIdeaSelected,
-      required this.isAndroidStudioSelected});
+  const VerifyRouteArgs({
+    this.key,
+    required this.installationPath,
+    required this.isVsCodeSelected,
+    required this.isGitSelected,
+    required this.isIntellijIdeaSelected,
+    required this.isAndroidStudioSelected,
+  });
 
   final Key? key;
 

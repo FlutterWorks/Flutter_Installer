@@ -8,7 +8,7 @@ import 'package:flutter_installer/customize/bloc/customize_bloc.dart';
 import 'package:provider/provider.dart';
 
 class FiApp extends StatefulWidget {
-  const FiApp({Key? key}) : super(key: key);
+  const FiApp({super.key});
 
   @override
   State<FiApp> createState() => _FiAppState();

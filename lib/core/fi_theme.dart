@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class FiTheme {
   static const TextTheme _textTheme = TextTheme(
-    subtitle1: TextStyle(
+    titleMedium: TextStyle(
       fontFamily: "RobotoMono",
     ),
-    subtitle2: TextStyle(
+    titleSmall: TextStyle(
       fontFamily: "RobotoMono",
     ),
   );

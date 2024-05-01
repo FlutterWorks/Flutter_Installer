@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class VerifyItem extends StatelessWidget {
   const VerifyItem({
-    Key? key,
+    super.key,
     required this.text,
-  }) : super(key: key);
+  });
 
   final String text;
 
@@ -12,7 +12,7 @@ class VerifyItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       "  🔹 $text",
-      style: Theme.of(context).textTheme.subtitle1,
+      style: Theme.of(context).textTheme.titleMedium,
     );
   }
 }

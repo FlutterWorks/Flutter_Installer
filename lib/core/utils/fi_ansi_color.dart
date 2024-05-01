@@ -38,7 +38,7 @@ class FiAnsiColor {
   String call(String msg) {
     if (color) {
       // `this` in here calls the `toString` method.
-      return '${this}$msg$ansiDefault';
+      return '$this$msg$ansiDefault';
     } else {
       return msg;
     }

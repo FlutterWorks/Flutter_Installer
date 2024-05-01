@@ -11,7 +11,7 @@ import 'package:mocktail/mocktail.dart';
 import '../mocks/mocks.dart';
 
 void main() {
-  late MockCustomizeBloc _mockCustomizeBloc;
+  late MockCustomizeBloc mockCustomizeBloc;
 
   Widget buildCustomizeScreen() {
     return MaterialApp(
@@ -22,7 +22,7 @@ void main() {
       ) {
         return MultiBlocProvider(
           providers: [
-            BlocProvider<CustomizeBloc>.value(value: _mockCustomizeBloc)
+            BlocProvider<CustomizeBloc>.value(value: mockCustomizeBloc)
           ],
           child: child!,
         );
@@ -31,310 +31,300 @@ void main() {
   }
 
   setUp(() {
-    _mockCustomizeBloc = MockCustomizeBloc();
+    mockCustomizeBloc = MockCustomizeBloc();
 
     whenListen(
-      _mockCustomizeBloc,
+      mockCustomizeBloc,
       const Stream<CustomizeState>.empty(),
       initialState: const CustomizeState.unknown(),
     );
   });
 
   tearDown(() {
-    verifyNoMoreInteractions(_mockCustomizeBloc);
+    verifyNoMoreInteractions(mockCustomizeBloc);
   });
 
-  void _verifyAfterPumpAndSettle() {
-    verify(() => _mockCustomizeBloc.state).called(6);
-    verify(() => _mockCustomizeBloc.stream).called(4);
+  void verifyAfterPumpAndSettle() {
+    verify(() => mockCustomizeBloc.state).called(6);
+    verify(() => mockCustomizeBloc.stream).called(4);
     verify(
-      () => _mockCustomizeBloc.add(
+      () => mockCustomizeBloc.add(
         const CustomizeInitializeEvent(),
       ),
     ).called(1);
   }
 
-  group(
-    "CustomizeScreen |",
-    () {
+  group("CustomizeScreen |", () {
+    testWidgets(
+      "should render correctly.",
+      (WidgetTester tester) async {
+        await tester.pumpWidget(buildCustomizeScreen());
+        await tester.pumpAndSettle();
+        verifyAfterPumpAndSettle();
+
+        expect(find.byType(CustomizeScreen), findsOneWidget);
+      },
+    );
+
+    testWidgets(
+      "should find customize text.",
+      (WidgetTester tester) async {
+        await tester.pumpWidget(buildCustomizeScreen());
+        await tester.pumpAndSettle();
+        verifyAfterPumpAndSettle();
+
+        final Finder customizeTextFinder = find.text("Customize");
+        expect(customizeTextFinder, findsOneWidget);
+      },
+    );
+
+    group("choose installation path", () {
       testWidgets(
-        "should render correctly.",
+        "should find choose installation path text.",
         (WidgetTester tester) async {
           await tester.pumpWidget(buildCustomizeScreen());
           await tester.pumpAndSettle();
-          _verifyAfterPumpAndSettle();
+          verifyAfterPumpAndSettle();
 
-          expect(find.byType(CustomizeScreen), findsOneWidget);
+          final Finder chooseInstallationPath = find.text(
+            "Choose the installation path: (required)",
+          );
+          expect(chooseInstallationPath, findsOneWidget);
         },
       );
 
       testWidgets(
-        "should find customize text.",
+        "should find placeholder text for installation path "
+        "when installation path is null "
+        "and installation path error is null.",
         (WidgetTester tester) async {
           await tester.pumpWidget(buildCustomizeScreen());
           await tester.pumpAndSettle();
-          _verifyAfterPumpAndSettle();
+          verifyAfterPumpAndSettle();
 
-          final Finder customizeTextFinder = find.text("Customize");
-          expect(customizeTextFinder, findsOneWidget);
+          final Finder chooseInstallationPlaceholderText = find.text(
+            "e.g. my_awesome_path/for/fluter",
+          );
+          expect(chooseInstallationPlaceholderText, findsOneWidget);
         },
       );
 
-      group(
-        "choose installation path",
-        () {
-          testWidgets(
-            "should find choose installation path text.",
-            (WidgetTester tester) async {
-              await tester.pumpWidget(buildCustomizeScreen());
-              await tester.pumpAndSettle();
-              _verifyAfterPumpAndSettle();
-
-              final Finder chooseInstallationPath = find.text(
-                "Choose the installation path: (required)",
-              );
-              expect(chooseInstallationPath, findsOneWidget);
-            },
+      testWidgets(
+        "should find error text for installation path "
+        "and verify its properties "
+        "when installation path is null "
+        "and installation path error is not null.",
+        (WidgetTester tester) async {
+          when(() => mockCustomizeBloc.state).thenReturn(
+            const CustomizeState.unknown().copyWith(
+              installationPath: null,
+              installationPathError: "You must choose an installation path!",
+            ),
           );
 
-          testWidgets(
-            "should find placeholder text for installation path "
-            "when installation path is null "
-            "and installation path error is null.",
-            (WidgetTester tester) async {
-              await tester.pumpWidget(buildCustomizeScreen());
-              await tester.pumpAndSettle();
-              _verifyAfterPumpAndSettle();
+          await tester.pumpWidget(buildCustomizeScreen());
+          await tester.pumpAndSettle();
+          verifyAfterPumpAndSettle();
 
-              final Finder chooseInstallationPlaceholderText = find.text(
-                "e.g. my_awesome_path/for/fluter",
-              );
-              expect(chooseInstallationPlaceholderText, findsOneWidget);
-            },
+          final Finder chooseInstallationErrorText = find.text(
+            "You must choose an installation path!",
           );
+          expect(chooseInstallationErrorText, findsOneWidget);
 
-          testWidgets(
-            "should find error text for installation path "
-            "and verify its properties "
-            "when installation path is null "
-            "and installation path error is not null.",
-            (WidgetTester tester) async {
-              when(() => _mockCustomizeBloc.state).thenReturn(
-                const CustomizeState.unknown().copyWith(
-                  installationPath: null,
-                  installationPathError:
-                      "You must choose an installation path!",
-                ),
-              );
-
-              await tester.pumpWidget(buildCustomizeScreen());
-              await tester.pumpAndSettle();
-              _verifyAfterPumpAndSettle();
-
-              final Finder chooseInstallationErrorText = find.text(
-                "You must choose an installation path!",
-              );
-              expect(chooseInstallationErrorText, findsOneWidget);
-
-              final Text chooseInstallationErrorTextWidget = tester.widget(
-                chooseInstallationErrorText,
-              );
-              expect(
-                chooseInstallationErrorTextWidget.style?.color,
-                equals(Colors.red),
-              );
-            },
+          final Text chooseInstallationErrorTextWidget = tester.widget(
+            chooseInstallationErrorText,
           );
-
-          testWidgets(
-            "should find chosen path text for installation path "
-            "when installation path is not null "
-            "and installation path error is null.",
-            (WidgetTester tester) async {
-              when(() => _mockCustomizeBloc.state).thenReturn(
-                const CustomizeState.unknown().copyWith(
-                  installationPath: "installationPath",
-                  installationPathError: null,
-                ),
-              );
-
-              await tester.pumpWidget(buildCustomizeScreen());
-              await tester.pumpAndSettle();
-              _verifyAfterPumpAndSettle();
-
-              final Finder chosenPathText = find.text(
-                "installationPath",
-              );
-              expect(chosenPathText, findsOneWidget);
-            },
-          );
-
-          testWidgets(
-            "should find browse button from its text "
-            "and click it.",
-            (WidgetTester tester) async {
-              await tester.pumpWidget(buildCustomizeScreen());
-              await tester.pumpAndSettle();
-              _verifyAfterPumpAndSettle();
-
-              final Finder browseButtonFinder = find.text(
-                "Browse",
-              );
-              expect(browseButtonFinder, findsOneWidget);
-
-              await tester.tap(browseButtonFinder);
-              await tester.pumpAndSettle();
-
-              verify(
-                () => _mockCustomizeBloc.add(
-                  const CustomizeBrowseEvent(),
-                ),
-              ).called(1);
-            },
-          );
-        },
-      );
-
-      group(
-        "choose apps you need",
-        () {
-          testWidgets(
-            "should find choose apps you need text.",
-            (WidgetTester tester) async {
-              await tester.pumpWidget(buildCustomizeScreen());
-              await tester.pumpAndSettle();
-              _verifyAfterPumpAndSettle();
-
-              final Finder chooseAppsText = find.text(
-                "Choose apps you need: (optional)",
-              );
-              expect(chooseAppsText, findsOneWidget);
-            },
-          );
-
-          testWidgets(
-            "should find app checkbox tile with text vs code "
-            "and click it.",
-            (WidgetTester tester) async {
-              await tester.pumpWidget(buildCustomizeScreen());
-              await tester.pumpAndSettle();
-              _verifyAfterPumpAndSettle();
-
-              final Finder appCheckboxTileVsCode = find.ancestor(
-                of: find.text("VS Code"),
-                matching: find.byType(AppCheckboxTile),
-              );
-              expect(appCheckboxTileVsCode, findsOneWidget);
-
-              await tester.tap(appCheckboxTileVsCode);
-              await tester.pumpAndSettle();
-
-              verify(
-                () => _mockCustomizeBloc.add(
-                  const CustomizeAppClickedEvent(
-                    isVsCodeSelected: true,
-                  ),
-                ),
-              ).called(1);
-            },
-          );
-
-          testWidgets(
-            "should find app checkbox tile with text git "
-            "and click it.",
-            (WidgetTester tester) async {
-              await tester.pumpWidget(buildCustomizeScreen());
-              await tester.pumpAndSettle();
-              _verifyAfterPumpAndSettle();
-
-              final Finder appCheckboxTileGit = find.ancestor(
-                of: find.text("Git"),
-                matching: find.byType(AppCheckboxTile),
-              );
-              expect(appCheckboxTileGit, findsOneWidget);
-
-              await tester.tap(appCheckboxTileGit);
-              await tester.pumpAndSettle();
-
-              verify(
-                () => _mockCustomizeBloc.add(
-                  const CustomizeAppClickedEvent(
-                    isGitSelected: true,
-                  ),
-                ),
-              ).called(1);
-            },
-          );
-
-          testWidgets(
-            "should find app checkbox tile with text intellij idea "
-            "and click it.",
-            (WidgetTester tester) async {
-              await tester.pumpWidget(buildCustomizeScreen());
-              await tester.pumpAndSettle();
-              _verifyAfterPumpAndSettle();
-
-              final Finder appCheckboxTileIntellijIdea = find.ancestor(
-                of: find.text("IntelliJ IDEA"),
-                matching: find.byType(AppCheckboxTile),
-              );
-              expect(appCheckboxTileIntellijIdea, findsOneWidget);
-
-              await tester.tap(appCheckboxTileIntellijIdea);
-              await tester.pumpAndSettle();
-
-              verify(
-                () => _mockCustomizeBloc.add(
-                  const CustomizeAppClickedEvent(
-                    isIntellijIdeaSelected: true,
-                  ),
-                ),
-              ).called(1);
-            },
-          );
-
-          testWidgets(
-            "should find app checkbox tile with text android studio "
-            "and click it.",
-            (WidgetTester tester) async {
-              await tester.pumpWidget(buildCustomizeScreen());
-              await tester.pumpAndSettle();
-              _verifyAfterPumpAndSettle();
-
-              final Finder appCheckboxTileAndroidStudio = find.ancestor(
-                of: find.text("Android Studio"),
-                matching: find.byType(AppCheckboxTile),
-              );
-              expect(appCheckboxTileAndroidStudio, findsOneWidget);
-
-              await tester.tap(appCheckboxTileAndroidStudio);
-              await tester.pumpAndSettle();
-
-              verify(
-                () => _mockCustomizeBloc.add(
-                  const CustomizeAppClickedEvent(
-                    isAndroidStudioSelected: true,
-                  ),
-                ),
-              ).called(1);
-            },
+          expect(
+            chooseInstallationErrorTextWidget.style?.color,
+            equals(Colors.red),
           );
         },
       );
 
       testWidgets(
-        "should find fi back next button widget.",
+        "should find chosen path text for installation path "
+        "when installation path is not null "
+        "and installation path error is null.",
+        (WidgetTester tester) async {
+          when(() => mockCustomizeBloc.state).thenReturn(
+            const CustomizeState.unknown().copyWith(
+              installationPath: "installationPath",
+              installationPathError: null,
+            ),
+          );
+
+          await tester.pumpWidget(buildCustomizeScreen());
+          await tester.pumpAndSettle();
+          verifyAfterPumpAndSettle();
+
+          final Finder chosenPathText = find.text(
+            "installationPath",
+          );
+          expect(chosenPathText, findsOneWidget);
+        },
+      );
+
+      testWidgets(
+        "should find browse button from its text "
+        "and click it.",
         (WidgetTester tester) async {
           await tester.pumpWidget(buildCustomizeScreen());
           await tester.pumpAndSettle();
-          _verifyAfterPumpAndSettle();
+          verifyAfterPumpAndSettle();
 
-          final Finder backNextButtons = find.byType(
-            FIBackNextButtons,
+          final Finder browseButtonFinder = find.text(
+            "Browse",
           );
-          expect(backNextButtons, findsOneWidget);
+          expect(browseButtonFinder, findsOneWidget);
+
+          await tester.tap(browseButtonFinder);
+          await tester.pumpAndSettle();
+
+          verify(
+            () => mockCustomizeBloc.add(
+              const CustomizeBrowseEvent(),
+            ),
+          ).called(1);
         },
       );
-    },
-  );
+    });
+
+    group("choose apps you need", () {
+      testWidgets(
+        "should find choose apps you need text.",
+        (WidgetTester tester) async {
+          await tester.pumpWidget(buildCustomizeScreen());
+          await tester.pumpAndSettle();
+          verifyAfterPumpAndSettle();
+
+          final Finder chooseAppsText = find.text(
+            "Choose apps you need: (optional)",
+          );
+          expect(chooseAppsText, findsOneWidget);
+        },
+      );
+
+      testWidgets(
+        "should find app checkbox tile with text vs code "
+        "and click it.",
+        (WidgetTester tester) async {
+          await tester.pumpWidget(buildCustomizeScreen());
+          await tester.pumpAndSettle();
+          verifyAfterPumpAndSettle();
+
+          final Finder appCheckboxTileVsCode = find.ancestor(
+            of: find.text("VS Code"),
+            matching: find.byType(AppCheckboxTile),
+          );
+          expect(appCheckboxTileVsCode, findsOneWidget);
+
+          await tester.tap(appCheckboxTileVsCode);
+          await tester.pumpAndSettle();
+
+          verify(
+            () => mockCustomizeBloc.add(
+              const CustomizeAppClickedEvent(
+                isVsCodeSelected: true,
+              ),
+            ),
+          ).called(1);
+        },
+      );
+
+      testWidgets(
+        "should find app checkbox tile with text git "
+        "and click it.",
+        (WidgetTester tester) async {
+          await tester.pumpWidget(buildCustomizeScreen());
+          await tester.pumpAndSettle();
+          verifyAfterPumpAndSettle();
+
+          final Finder appCheckboxTileGit = find.ancestor(
+            of: find.text("Git"),
+            matching: find.byType(AppCheckboxTile),
+          );
+          expect(appCheckboxTileGit, findsOneWidget);
+
+          await tester.tap(appCheckboxTileGit);
+          await tester.pumpAndSettle();
+
+          verify(
+            () => mockCustomizeBloc.add(
+              const CustomizeAppClickedEvent(
+                isGitSelected: true,
+              ),
+            ),
+          ).called(1);
+        },
+      );
+
+      testWidgets(
+        "should find app checkbox tile with text intellij idea "
+        "and click it.",
+        (WidgetTester tester) async {
+          await tester.pumpWidget(buildCustomizeScreen());
+          await tester.pumpAndSettle();
+          verifyAfterPumpAndSettle();
+
+          final Finder appCheckboxTileIntellijIdea = find.ancestor(
+            of: find.text("IntelliJ IDEA"),
+            matching: find.byType(AppCheckboxTile),
+          );
+          expect(appCheckboxTileIntellijIdea, findsOneWidget);
+
+          await tester.tap(appCheckboxTileIntellijIdea);
+          await tester.pumpAndSettle();
+
+          verify(
+            () => mockCustomizeBloc.add(
+              const CustomizeAppClickedEvent(
+                isIntellijIdeaSelected: true,
+              ),
+            ),
+          ).called(1);
+        },
+      );
+
+      testWidgets(
+        "should find app checkbox tile with text android studio "
+        "and click it.",
+        (WidgetTester tester) async {
+          await tester.pumpWidget(buildCustomizeScreen());
+          await tester.pumpAndSettle();
+          verifyAfterPumpAndSettle();
+
+          final Finder appCheckboxTileAndroidStudio = find.ancestor(
+            of: find.text("Android Studio"),
+            matching: find.byType(AppCheckboxTile),
+          );
+          expect(appCheckboxTileAndroidStudio, findsOneWidget);
+
+          await tester.tap(appCheckboxTileAndroidStudio);
+          await tester.pumpAndSettle();
+
+          verify(
+            () => mockCustomizeBloc.add(
+              const CustomizeAppClickedEvent(
+                isAndroidStudioSelected: true,
+              ),
+            ),
+          ).called(1);
+        },
+      );
+    });
+
+    testWidgets(
+      "should find fi back next button widget.",
+      (WidgetTester tester) async {
+        await tester.pumpWidget(buildCustomizeScreen());
+        await tester.pumpAndSettle();
+        verifyAfterPumpAndSettle();
+
+        final Finder backNextButtons = find.byType(
+          FIBackNextButtons,
+        );
+        expect(backNextButtons, findsOneWidget);
+      },
+    );
+  });
 }

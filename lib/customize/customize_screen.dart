@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_installer/core/fi_constants.dart';
@@ -6,8 +7,9 @@ import 'package:flutter_installer/core/widgets/fi_back_next_buttons.dart';
 import 'package:flutter_installer/customize/bloc/customize_bloc.dart';
 import 'package:flutter_installer/customize/widgets/app_checkbox_tile.dart';
 
+@RoutePage()
 class CustomizeScreen extends StatefulWidget {
-  const CustomizeScreen({Key? key}) : super(key: key);
+  const CustomizeScreen({super.key});
 
   @override
   State<CustomizeScreen> createState() => _CustomizeScreenState();
@@ -36,14 +38,14 @@ class _CustomizeScreenState extends State<CustomizeScreen> {
               children: <Widget>[
                 Text(
                   "Customize",
-                  style: Theme.of(context).textTheme.headline3,
+                  style: Theme.of(context).textTheme.displaySmall,
                 ),
               ],
             ),
             const SizedBox(height: FiConstants.unit),
             Text(
               "Choose the installation path: (required)",
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
             Row(
               children: <Widget>[
@@ -61,11 +63,12 @@ class _CustomizeScreenState extends State<CustomizeScreen> {
                         state.installationPathError ??
                             state.installationPath ??
                             "e.g. my_awesome_path/for/fluter",
-                        style: Theme.of(context).textTheme.subtitle1?.copyWith(
-                              color: state.installationPathError != null
-                                  ? Colors.red
-                                  : null,
-                            ),
+                        style:
+                            Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  color: state.installationPathError != null
+                                      ? Colors.red
+                                      : null,
+                                ),
                         overflow: TextOverflow.ellipsis,
                       );
                     },
@@ -80,7 +83,7 @@ class _CustomizeScreenState extends State<CustomizeScreen> {
                     },
                     child: Text(
                       "Browse",
-                      style: Theme.of(context).textTheme.button?.copyWith(
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
@@ -92,7 +95,7 @@ class _CustomizeScreenState extends State<CustomizeScreen> {
             const SizedBox(height: FiConstants.unit),
             Text(
               "Choose apps you need: (optional)",
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
             BlocBuilder<CustomizeBloc, CustomizeState>(
               buildWhen: (
@@ -166,7 +169,7 @@ class _CustomizeScreenState extends State<CustomizeScreen> {
               builder: (BuildContext context, CustomizeState state) {
                 return FIBackNextButtons(
                   onBackPressed: () async {
-                    await context.read<FIRouter>().pop();
+                    await context.read<FIRouter>().maybePop();
                   },
                   onNextPressed: state.installationPath == null
                       ? null

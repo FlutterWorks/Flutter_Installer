@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_installer/core/fi_constants.dart';
 import 'package:flutter_installer/core/router/fi_router.dart';
@@ -5,15 +6,16 @@ import 'package:flutter_installer/core/widgets/fi_back_next_buttons.dart';
 import 'package:flutter_installer/verify/widgets/verify_item.dart';
 import 'package:provider/provider.dart';
 
+@RoutePage()
 class VerifyScreen extends StatelessWidget {
   const VerifyScreen({
-    Key? key,
+    super.key,
     required this.installationPath,
     required this.isVsCodeSelected,
     required this.isGitSelected,
     required this.isIntellijIdeaSelected,
     required this.isAndroidStudioSelected,
-  }) : super(key: key);
+  });
 
   final String installationPath;
   final bool isVsCodeSelected;
@@ -34,14 +36,14 @@ class VerifyScreen extends StatelessWidget {
               children: <Widget>[
                 Text(
                   "Verify",
-                  style: Theme.of(context).textTheme.headline3,
+                  style: Theme.of(context).textTheme.displaySmall,
                 ),
               ],
             ),
             const SizedBox(height: FiConstants.unit),
             Text(
               "🔵 This is a summary of what will be downloaded & installed:",
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
             VerifyItem(
               text: "Path: $installationPath",
@@ -65,7 +67,7 @@ class VerifyScreen extends StatelessWidget {
             const Spacer(),
             FIBackNextButtons(
               onBackPressed: () async {
-                await context.read<FIRouter>().pop();
+                await context.read<FIRouter>().maybePop();
               },
               onNextPressed: () async {
                 // TODO(yazeedalkhalaf): navigate to install route.

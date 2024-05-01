@@ -1,10 +1,12 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_installer/core/fi_constants.dart';
 import 'package:flutter_installer/core/router/fi_router.dart';
 import 'package:provider/provider.dart';
 
+@RoutePage()
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   static Key flutterLogoKey = UniqueKey();
   static Key flutterInstallerLogoKey = UniqueKey();
@@ -38,7 +40,7 @@ class HomeScreen extends StatelessWidget {
               ),
               Text(
                 "Flutter Installer",
-                style: Theme.of(context).textTheme.headline4,
+                style: Theme.of(context).textTheme.headlineMedium,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: FiConstants.unit),
@@ -53,7 +55,7 @@ class HomeScreen extends StatelessWidget {
                 },
                 child: Text(
                   "Get Started",
-                  style: Theme.of(context).textTheme.headline5?.copyWith(
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
@@ -68,18 +70,18 @@ class HomeScreen extends StatelessWidget {
                 icon: const Icon(Icons.help_outline_rounded),
                 label: Text(
                   "FAQ",
-                  style: Theme.of(context).textTheme.button,
+                  style: Theme.of(context).textTheme.labelLarge,
                 ),
               ),
               const Spacer(),
               Text(
                 "Made using Flutter 💙",
-                style: Theme.of(context).textTheme.subtitle2,
+                style: Theme.of(context).textTheme.titleSmall,
                 textAlign: TextAlign.center,
               ),
               Text(
                 "Flutter and the related logo are trademarks of Google LLC.\nWe are not endorsed by or affiliated with Google LLC.",
-                style: Theme.of(context).textTheme.subtitle2,
+                style: Theme.of(context).textTheme.titleSmall,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: FiConstants.unit),

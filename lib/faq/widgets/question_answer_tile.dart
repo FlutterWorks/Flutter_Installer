@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class QuestionAnswerTile extends StatelessWidget {
   const QuestionAnswerTile({
-    Key? key,
+    super.key,
     required this.question,
     required this.answer,
-  }) : super(key: key);
+  });
 
   final String question;
   final String answer;

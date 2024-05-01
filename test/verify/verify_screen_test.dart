@@ -21,44 +21,41 @@ void main() {
     );
   }
 
-  group(
-    "VerifyScreen |",
-    () {
-      testWidgets(
-        "should render correctly.",
-        (WidgetTester tester) async {
-          await tester.pumpWidget(buildVerifyScreen());
-          await tester.pumpAndSettle();
+  group("VerifyScreen |", () {
+    testWidgets(
+      "should render correctly.",
+      (WidgetTester tester) async {
+        await tester.pumpWidget(buildVerifyScreen());
+        await tester.pumpAndSettle();
 
-          expect(find.byType(VerifyScreen), findsOneWidget);
-        },
-      );
+        expect(find.byType(VerifyScreen), findsOneWidget);
+      },
+    );
 
-      testWidgets(
-        "should find verify text.",
-        (WidgetTester tester) async {
-          await tester.pumpWidget(buildVerifyScreen());
-          await tester.pumpAndSettle();
+    testWidgets(
+      "should find verify text.",
+      (WidgetTester tester) async {
+        await tester.pumpWidget(buildVerifyScreen());
+        await tester.pumpAndSettle();
 
-          final Finder verifyText = find.text(
-            "Verify",
-          );
-          expect(verifyText, findsOneWidget);
-        },
-      );
+        final Finder verifyText = find.text(
+          "Verify",
+        );
+        expect(verifyText, findsOneWidget);
+      },
+    );
 
-      testWidgets(
-        "should find this is a summary text.",
-        (WidgetTester tester) async {
-          await tester.pumpWidget(buildVerifyScreen());
-          await tester.pumpAndSettle();
+    testWidgets(
+      "should find this is a summary text.",
+      (WidgetTester tester) async {
+        await tester.pumpWidget(buildVerifyScreen());
+        await tester.pumpAndSettle();
 
-          final Finder thisSummaryText = find.text(
-            "🔵 This is a summary of what will be downloaded & installed:",
-          );
-          expect(thisSummaryText, findsOneWidget);
-        },
-      );
-    },
-  );
+        final Finder thisSummaryText = find.text(
+          "🔵 This is a summary of what will be downloaded & installed:",
+        );
+        expect(thisSummaryText, findsOneWidget);
+      },
+    );
+  });
 }

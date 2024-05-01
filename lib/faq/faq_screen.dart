@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_installer/core/fi_constants.dart';
 import 'package:flutter_installer/core/models/models.dart';
@@ -5,8 +6,9 @@ import 'package:flutter_installer/core/router/fi_router.dart';
 import 'package:flutter_installer/faq/widgets/question_answer_tile.dart';
 import 'package:provider/provider.dart';
 
+@RoutePage()
 class FaqScreen extends StatelessWidget {
-  const FaqScreen({Key? key}) : super(key: key);
+  const FaqScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,14 +28,14 @@ class FaqScreen extends StatelessWidget {
                   quarterTurns: 3,
                   child: Text(
                     "🎈 FAQ",
-                    style: Theme.of(context).textTheme.headline2?.copyWith(
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
                           color: Colors.white,
                         ),
                   ),
                 ),
                 TextButton.icon(
                   onPressed: () async {
-                    await context.read<FIRouter>().pop();
+                    await context.read<FIRouter>().maybePop();
                   },
                   icon: const Icon(
                     Icons.arrow_back_rounded,
@@ -41,7 +43,7 @@ class FaqScreen extends StatelessWidget {
                   ),
                   label: Text(
                     "Back",
-                    style: Theme.of(context).textTheme.button?.copyWith(
+                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
                           color: Colors.white,
                         ),
                   ),

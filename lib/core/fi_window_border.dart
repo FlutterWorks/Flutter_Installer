@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 class FiWindowBorder extends StatelessWidget {
   const FiWindowBorder({
-    Key? key,
+    super.key,
     required this.child,
-  }) : super(key: key);
+  });
 
   final Widget child;
 
