@@ -15,6 +15,7 @@ class AppCheckboxTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CheckboxListTile(
+      activeColor: Theme.of(context).colorScheme.primary,
       controlAffinity: ListTileControlAffinity.leading,
       value: value,
       onChanged: onChanged,

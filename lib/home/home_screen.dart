@@ -44,22 +44,27 @@ class HomeScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: FiConstants.unit),
-              FilledButton(
-                onPressed: () async {
-                  await context.read<FIRouter>().push(
-                        const CustomizeRoute(),
-                      );
-                },
-                child: const Text("Get Started"),
-              ),
-              const SizedBox(height: FiConstants.unit),
-              OutlinedButton.icon(
-                key: faqButtonKey,
-                onPressed: () async {
-                  await context.read<FIRouter>().push(const FaqRoute());
-                },
-                icon: const Icon(Icons.help_outline_rounded),
-                label: const Text("FAQ"),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () async {
+                      await context.read<FIRouter>().push(
+                            const CustomizeRoute(),
+                          );
+                    },
+                    child: const Text("Get Started"),
+                  ),
+                  const SizedBox(width: FiConstants.unit),
+                  OutlinedButton.icon(
+                    key: faqButtonKey,
+                    onPressed: () async {
+                      await context.read<FIRouter>().push(const FaqRoute());
+                    },
+                    icon: const Icon(Icons.help_outline_rounded),
+                    label: const Text("FAQ"),
+                  ),
+                ],
               ),
               const Spacer(),
               Text(

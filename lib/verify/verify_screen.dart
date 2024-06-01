@@ -36,7 +36,7 @@ class VerifyScreen extends StatelessWidget {
               children: <Widget>[
                 Text(
                   "Verify",
-                  style: Theme.of(context).textTheme.displaySmall,
+                  style: Theme.of(context).textTheme.headlineSmall,
                 ),
               ],
             ),

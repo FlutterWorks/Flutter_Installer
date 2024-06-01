@@ -19,7 +19,7 @@ class FaqScreen extends StatelessWidget {
             width: MediaQuery.of(context).size.width / 5,
             padding: const EdgeInsets.all(FiConstants.unit),
             decoration: BoxDecoration(
-              color: Theme.of(context).primaryColorDark,
+              color: Theme.of(context).colorScheme.primary,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -29,7 +29,7 @@ class FaqScreen extends StatelessWidget {
                   child: Text(
                     "🎈 FAQ",
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                          color: Colors.white,
+                          color: Theme.of(context).colorScheme.onPrimary,
                         ),
                   ),
                 ),
@@ -37,14 +37,14 @@ class FaqScreen extends StatelessWidget {
                   onPressed: () async {
                     await context.read<FIRouter>().maybePop();
                   },
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.arrow_back_rounded,
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.onPrimary,
                   ),
                   label: Text(
                     "Back",
                     style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                          color: Colors.white,
+                          color: Theme.of(context).colorScheme.onPrimary,
                         ),
                   ),
                 ),

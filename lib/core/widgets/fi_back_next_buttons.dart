@@ -13,26 +13,23 @@ class FIBackNextButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        ElevatedButton.icon(
+        ElevatedButton(
           onPressed: onBackPressed,
-          icon: const Icon(Icons.arrow_left_rounded),
-          label: Text(
+          child: Text(
             "Back",
             style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                  color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
           ),
         ),
-        ElevatedButton.icon(
+        const SizedBox(width: 16),
+        ElevatedButton(
           onPressed: onNextPressed,
-          label: const Icon(Icons.arrow_right_rounded),
-          icon: Text(
+          child: Text(
             "Next",
             style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                  color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
           ),

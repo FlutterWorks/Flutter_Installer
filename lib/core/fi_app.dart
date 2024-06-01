@@ -29,6 +29,7 @@ class _FiAppState extends State<FiApp> {
     return MaterialApp.router(
       routerConfig: _fiRouter.config(),
       theme: FiTheme.lightTheme,
+      darkTheme: FiTheme.darkTheme,
       builder: (BuildContext context, Widget? child) {
         return FiWindowBorder(
           child: MultiProvider(

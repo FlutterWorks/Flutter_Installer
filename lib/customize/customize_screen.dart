@@ -38,7 +38,7 @@ class _CustomizeScreenState extends State<CustomizeScreen> {
               children: <Widget>[
                 Text(
                   "Customize",
-                  style: Theme.of(context).textTheme.displaySmall,
+                  style: Theme.of(context).textTheme.headlineSmall,
                 ),
               ],
             ),
@@ -67,7 +67,7 @@ class _CustomizeScreenState extends State<CustomizeScreen> {
                             Theme.of(context).textTheme.titleMedium?.copyWith(
                                   color: state.installationPathError != null
                                       ? Colors.red
-                                      : null,
+                                      : Theme.of(context).colorScheme.primary,
                                 ),
                         overflow: TextOverflow.ellipsis,
                       );
